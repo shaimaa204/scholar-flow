@@ -1,0 +1,128 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Student user profile information",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "settings": {
+          "type": "object",
+          "properties": {
+            "darkMode": { "type": "boolean" },
+            "notificationsEnabled": { "type": "boolean" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email"]
+    },
+    "Subject": {
+      "title": "Academic Subject",
+      "description": "A course or subject the student is enrolled in",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "color": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name"]
+    },
+    "Task": {
+      "title": "Study Task",
+      "description": "A specific task or assignment for a subject",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "title": { "type": "string" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high"] },
+        "dueDate": { "type": "string", "format": "date-time" },
+        "completed": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "subjectId", "title"]
+    },
+    "Exam": {
+      "title": "Upcoming Exam",
+      "description": "Details about an upcoming examination",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "title": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "subjectId", "title", "date"]
+    },
+    "StudySchedule": {
+      "title": "Daily Study Plan",
+      "description": "AI-generated daily study schedule",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "plan": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "startTime": { "type": "string" },
+              "endTime": { "type": "string" },
+              "activity": { "type": "string" },
+              "type": { "type": "string", "enum": ["study", "break", "exam"] }
+            }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "date", "plan"]
+    },
+    "StickyNote": {
+      "title": "Sticky Note",
+      "description": "Quick notes or reminders",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "content": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profile and settings"
+    },
+    "/subjects/{subjectId}": {
+      "schema": { "$ref": "#/entities/Subject" },
+      "description": "Stores academic subjects"
+    },
+    "/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/Task" },
+      "description": "Stores study tasks"
+    },
+    "/exams/{examId}": {
+      "schema": { "$ref": "#/entities/Exam" },
+      "description": "Stores exam details"
+    },
+    "/schedules/{scheduleId}": {
+      "schema": { "$ref": "#/entities/StudySchedule" },
+      "description": "Stores AI generated study plans"
+    },
+    "/stickyNotes/{noteId}": {
+      "schema": { "$ref": "#/entities/StickyNote" },
+      "description": "Stores quick sticky notes"
+    }
+  }
+}
