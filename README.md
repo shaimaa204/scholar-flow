@@ -61,12 +61,25 @@ An elite, bilingual (Arabic & English) AI-powered study planner and organization
 
 Follow these steps to get your development environment running locally:
 
+## Installation & Local Setup | التثبيت والتشغيل المحلي
+
+Follow these steps to get your development environment running locally:
+
 ### 1. Clone the repository | استنساخ المستودع
 ```bash
-git clone [https://github.com/YOUR_USERNAME/AI-School-Study-Planner.git](https://github.com/YOUR_USERNAME/AI-School-Study-Planner.git)
-cd AI-School-Study-Planner
+git clone https://github.com/YOUR_USERNAME/AI-School-Study-Planner.git
+cd AI-School-Study-Planner```
+### 2. Install dependencies | تثبيت الحزم البرمجية
+```bash
 npm install
+npm run dev```
+### 3. Environment Configuration | إعداد متغيرات البيئة
+Create a .env file in the root directory and add your keys:
+```env
 VITE_FIREBASE_API_KEY=your_api_key
-VITE_GEMINI_API_KEY=your_gemini_key
-npm run dev
+VITE_GEMINI_API_KEY=your_gemini_key```
+### 4. Run the application | تشغيل المشروع محلياً
+```bash
+npm run dev```
+
 
